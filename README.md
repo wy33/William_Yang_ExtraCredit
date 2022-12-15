@@ -31,6 +31,29 @@ g++ -o subsequence subsequence.cc
 g++ -o subsequence optimal_multiplications.cc
 ```
 
+To delete executables and object files, type:
+
+```bash
+rm subsequence subsequence.o optimal_multiplications optimal_multiplications.o
+```
+
+Followup by typing:
+
+```bash
+y
+```
+
+and pressing enter 4 times to delete all files.
+
+To delete individually, just put files individually after **rm**
+and type:
+
+```bash
+y
+```
+
+once.
+
 To run subsequence, type:
 
 ```bash
