@@ -50,7 +50,7 @@ int subsequence_driver(int argc, char** argv) {
     else
         longest = LongestCommonSubsequence(word2, word1);
 
-    cout << longest.size() << endl;
+    cout << longest << endl;
     return 0;
 }
 
