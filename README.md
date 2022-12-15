@@ -17,12 +17,36 @@ All parts completed.
 
 ## Running the assignment
 
-To compile on terminal, type:
+To compile both programs on terminal, type:
 
 ```bash
-g++ subsequence.cc
+g++ -c subsequence.cc optimal_multiplications.cc
 ```
 
 ```bash
-g++ optimal_multiplications.cc 
+g++ -o subsequence subsequence.cc
+```
+
+```bash
+g++ -o subsequence optimal_multiplications.cc
+```
+
+To run subsequence, type:
+
+```bash
+./subsequence <sequence 1> <sequence 2>
+```
+
+```bash
+./subsequence apples oranges
+```
+
+To run optimal_multiplications, type:
+
+```bash
+./optimal_multiplications <dimensions file>
+```
+
+```bash
+./optimal_multiplications dimensions_file.txt
 ```
