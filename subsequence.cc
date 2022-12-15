@@ -12,7 +12,8 @@ using namespace std;
 
 
 // Class Matrix:
-// A simple matrix class created to represent a matrix with accessors.
+// A simple matrix class created to represent a matrix.
+// Comes with accessors and a mutator to fill the matrx.
 // Code taken from the textbook.
 template<typename Object>
 class Matrix
@@ -51,33 +52,13 @@ public:
     }
 
 private:
+    // The matrix
     vector<vector<Object>> array_;
 };
 
 // Calculates the longest common subsequence of the two strings.
 string LongestCommonSubsequence(const string& word1, const string& word2) {
-/*    string longest;
-    int i = -1; // Start position for word1
-    int k = 0;  // Start position for word2
-
-    while (++i < word1.size() && k < word2.size())
-    {
-        for (int j = k; j < word2.size(); j++)
-        {
-            // Common character found
-            if (word1[i] == word2[j])
-            {
-                longest.push_back(word1[i]);
-                ++i;    // Increment index to the next character to compare for word1.
-                k = j + 1;  // Set start index of word2 to position after common character.
-                if (i >= word1.size())  // Reached the end of word1, terminate loop.
-                    break;
-            }
-
-        }
-    }
-
-    return longest;*/
+    // The table used to calculate the longest common subsequence.
     Matrix<int> length_table { (int)word1.size() + 1, (int)word2.size() + 1};
 
     for (int i = 0; i <= word1.size(); ++i)
@@ -86,13 +67,16 @@ string LongestCommonSubsequence(const string& word1, const string& word2) {
         {
             if (i == 0 || j == 0)   // 1st row and 1st column unused
                 length_table[i][j] = 0;
-            else if (word1[i - 1] == word2[j - 1])
+            else if (word1[i - 1] == word2[j - 1])  // Characters equal, add diagonal cell (upper left) and 1 to current cell.
                 length_table[i][j] = length_table[i - 1][j - 1] + 1;
-            else
+            else // Characters not equal, take max value of either previous row or  previous column.
                 length_table[i][j] = max(length_table[i - 1][j], length_table[i][j - 1]);
         }
     }
 
+    // Length of longest common subsequence.
+    // Always found at the last row and last column of matrix.
+    // Used to build longest common subsequence backwards.
     int longest_length_index = length_table[word1.size()][word2.size()];
     
     string longest;
@@ -100,6 +84,8 @@ string LongestCommonSubsequence(const string& word1, const string& word2) {
     int i = word1.size();
     int j = word2.size();
     // Build the subsequence backwards using the matrix.
+    // Move up or left of the matrix depending on which cell is longer (element) and move diagonally (up and left of matrix)
+    // when characters between the two words are equal (thus added to longest common subsequence).
     while (0 < i && 0 < j) {
         if (word1[i - 1] == word2[j - 1]) { // Characters equal in each word
             longest[longest_length_index - 1] = word1[i - 1];
@@ -107,11 +93,12 @@ string LongestCommonSubsequence(const string& word1, const string& word2) {
             --j;
             --longest_length_index;
         }
-        else if (length_table[i - 1][j] > length_table[i][j - 1])
+        else if (length_table[i - 1][j] > length_table[i][j - 1])   // Previous row longer (element)
             --i;
-        else
+        else // Previous column longer (element)
             --j;
     }
+
     return longest;
 }
 
@@ -121,15 +108,6 @@ int subsequence_driver(int argc, char** argv) {
     const string word2(argv[2]);
 
     string longest = LongestCommonSubsequence(word1, word2);
-
-    // If word1 is smaller, pass word1 as first parameter;
-    // else pass word2 as first parameter.
-    // Theory is that based on how the algorithm works, if we can get i and k (in the function) to increment faster, there would be less comparisons needed.
-/*    if (word1.size() < word2.size())
-        longest = LongestCommonSubsequence(word1, word2);
-    else
-        longest = LongestCommonSubsequence(word2, word1);*/
-
 
     cout << longest.size() << "\n" << longest << endl;
     return 0;

@@ -13,7 +13,8 @@ using namespace std;
 
 
 // Class Matrix:
-// A simple matrix class created to represent a matrix with accessors.
+// A simple matrix class created to represent a matrix.
+// Comes with accessors and a mutator to fill the matrx.
 // Code taken from the textbook.
 template<typename Object>
 class Matrix
@@ -52,6 +53,7 @@ public:
     }
 
 private:
+    // The matrix
     vector<vector<Object>> array_;
 };
 
@@ -115,7 +117,7 @@ void OptimalMatrixMultiplication(const vector<int>& c, Matrix<int>& m, Matrix<in
         }
 }
 
-// Driver for optimal matrix multiplication
+// Driver for optimal matrix multiplication.
 int multiplication_driver(int argc, char** argv) {
     const string dimensions_filename(argv[1]);
 
@@ -127,6 +129,7 @@ int multiplication_driver(int argc, char** argv) {
     Matrix<int> costs { dimensions_size, dimensions_size };
     Matrix<int> last_change { dimensions_size, dimensions_size };
 
+    // Compute optimal number of multiplications.
     OptimalMatrixMultiplication(dimensions, costs, last_change);
 
     // Optimal solution is always found in this cell (2st row, last column),
