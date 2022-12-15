@@ -45,14 +45,14 @@ y
 
 and pressing enter 4 times to delete all files.
 
-To delete individually, just put files individually after **rm**
-and type:
+To delete individually, just put files individually after **rm** and entering.
+Then type:
 
 ```bash
 y
 ```
 
-once.
+and enter once to delete the individual file.
 
 To run subsequence, type:
 
