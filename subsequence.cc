@@ -56,9 +56,11 @@ private:
     vector<vector<Object>> array_;
 };
 
-// Calculates the longest common subsequence of the two strings.
+// Calculates the longest common subsequence of the two strings (not continuous by in the same order).
 string LongestCommonSubsequence(const string& word1, const string& word2) {
     // The table used to calculate the longest common subsequence.
+    // The rows and columns will represent the characters of each word.
+    // Row length is word1's length + 1, column length is word2's length + 1.
     Matrix<int> length_table { (int)word1.size() + 1, (int)word2.size() + 1};
 
     for (int i = 0; i <= word1.size(); ++i)
@@ -69,7 +71,7 @@ string LongestCommonSubsequence(const string& word1, const string& word2) {
                 length_table[i][j] = 0;
             else if (word1[i - 1] == word2[j - 1])  // Characters equal, add diagonal cell (upper left) and 1 to current cell.
                 length_table[i][j] = length_table[i - 1][j - 1] + 1;
-            else // Characters not equal, take max value of either previous row or  previous column.
+            else // Characters not equal, take max value of either previous row or previous column.
                 length_table[i][j] = max(length_table[i - 1][j], length_table[i][j - 1]);
         }
     }
